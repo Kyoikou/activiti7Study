@@ -1,17 +1,28 @@
-package com.itheima.activiti.groupTest;
+package com.itheima.activiti.gateway;
 
+import com.itheima.activiti.entities.Holiday;
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.RuntimeService;
 import org.activiti.engine.runtime.ProcessInstance;
 
-public class CandidateStart {
+import java.util.HashMap;
+import java.util.Map;
+
+public class ExclusiveStart {
     public static void main(String[] args) {
         ProcessEngine defaultProcessEngine = ProcessEngines.getDefaultProcessEngine();
 
         RuntimeService runtimeService = defaultProcessEngine.getRuntimeService();
 
-        ProcessInstance candidateDemo = runtimeService.startProcessInstanceByKey("candidateDemo","候选人演示");
+        Map<String, Object> variables = new HashMap<>();
+
+        Holiday holiday = new Holiday();
+        holiday.setNum(5f);
+
+        variables.put("holiday", holiday);
+
+        ProcessInstance candidateDemo = runtimeService.startProcessInstanceByKey("parallelGateway","parallel", variables);
 
         System.out.println("流程部署ID " + candidateDemo.getDeploymentId());
         System.out.println("流程定义ID " + candidateDemo.getProcessDefinitionId());

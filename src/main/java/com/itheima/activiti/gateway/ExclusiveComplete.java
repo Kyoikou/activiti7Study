@@ -1,31 +1,28 @@
-package com.itheima.activiti.groupTest;
+package com.itheima.activiti.gateway;
 
 import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
 
-/**
- * 拾取任务就是将候选用户转化为真正的任务持有人（让任务的assignee有值）
- */
-public class CanditeClaim {
+public class ExclusiveComplete {
     public static void main(String[] args) {
         ProcessEngine defaultProcessEngine = ProcessEngines.getDefaultProcessEngine();
 
         TaskService taskService = defaultProcessEngine.getTaskService();
 
-        String key = "candidateDemo";
-        String candidate_users = "lisi";
+        String user = "zhaoliu";
+        String key = "parallelGateway";
 
         Task task = taskService.createTaskQuery()
                 .processDefinitionKey(key)
-                .taskCandidateUser(candidate_users)
+                .taskAssignee(user)
                 .singleResult();
         if (task !=null){
-           // 拾取任务 第一个参数  任务ID  第二个参数 候选人id
-            taskService.claim(task.getId(), candidate_users);
+            // 处理任务
+            taskService.complete(task.getId());
 
-            System.out.println(task.getId() + "任务已被拾取");
+            System.out.println(task.getId() + "任务已完成");
         }
     }
 }
