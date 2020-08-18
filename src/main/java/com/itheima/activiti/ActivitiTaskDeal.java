@@ -4,6 +4,7 @@ import org.activiti.engine.ProcessEngine;
 import org.activiti.engine.ProcessEngines;
 import org.activiti.engine.TaskService;
 import org.activiti.engine.task.Task;
+import org.activiti.engine.task.TaskQuery;
 
 import java.util.List;
 import java.util.Scanner;
@@ -16,6 +17,8 @@ public class ActivitiTaskDeal {
         ProcessEngine processEngine = ProcessEngines.getDefaultProcessEngine();
 
         TaskService taskService = processEngine.getTaskService();
+
+        TaskQuery taskQuery = taskService.createTaskQuery();
 
         List<Task> tasksList = taskService.createTaskQuery()
                 .processDefinitionKey("holiday")
