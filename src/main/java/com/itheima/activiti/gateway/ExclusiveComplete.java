@@ -11,8 +11,8 @@ public class ExclusiveComplete {
 
         TaskService taskService = defaultProcessEngine.getTaskService();
 
-        String user = "zhaoliu";
-        String key = "parallelGateway";
+        String user = "zhangsan";
+        String key = "inclusive";
 
         Task task = taskService.createTaskQuery()
                 .processDefinitionKey(key)
